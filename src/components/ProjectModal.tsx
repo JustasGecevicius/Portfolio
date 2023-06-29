@@ -17,9 +17,9 @@ export default function ProjectModal({
   ref,
 }: ProjectModaltype) {
   return (
-    <div className='h-screen'>
-      <div className='fixed top-0 bottom-0 left-0 right-0 z-10 bg-neutral-800'></div>
-      <div className='fixed top-0 bottom-0 left-0 right-0 z-20 flex flex-col w-screen h-screen p-2'>
+    <div className='fixed top-0 bottom-0 z-10 flex justify-center w-screen'>
+      <div className='fixed top-0 bottom-0 w-screen -z-10 bg-neutral-800'></div>
+      <div className='w-screen flex flex-col px-2 md:flex-row md:gap-x-10 py-[25%] md:max-w-2xl md:mx-auto'>
         <p
           className='fixed top-0 right-0 w-6 m-2 text-xl antialiased text-center text-black bg-white rounded-full aspect-square'
           onClick={() => {
@@ -27,12 +27,12 @@ export default function ProjectModal({
           }}>
           &#10005;
         </p>
-        <div className='flex flex-col items-center w-full overflow-y-auto shadow-outline aspect-square basis-0 grow'>
+        <div className='flex flex-col items-center w-full overflow-y-auto shadow-outline basis-0 aspect-square grow md:w-fit rounded-xl'>
           {Object.values(images).map((elem, index) => {
             return (
               <img
                 key={index}
-                className='h-full pt-1 rounded-md aspect-square'
+                className='h-full pt-1 aspect-square rounded-xl'
                 src={elem}
                 alt='ProjectImage'
               />

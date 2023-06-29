@@ -13,7 +13,7 @@ export const Projects = () => {
   const projectsList = useProjectList(db);
   console.log(projectsList, 'proj');
   return (
-    <div className='p-4 md:p-10'>
+    <div className='p-4 overflow-x-hidden md:p-10'>
       <h2 className='text-lg font-semibold text-center md:text-5xl'> Projects </h2>
       {projectsList && (
         <div className='pt-2'>

@@ -32,6 +32,8 @@ body {
   display: flex;
   place-items: center;
   min-height: 100dvh;
+  width: 100dvw;
+  overflow-x: hidden;
 }
 
 h1 {

@@ -103,7 +103,7 @@ export default function About() {
 
   return (
     <>
-      <div className='flex flex-col items-center p-5 h-fit gap-y-5'>
+      <div className='flex flex-col items-center justify-center h-screen p-5 gap-y-5'>
         <Animation />
       </div>
       <Footer />
