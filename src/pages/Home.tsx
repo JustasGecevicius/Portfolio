@@ -3,41 +3,43 @@ import { getStorage, ref, listAll, getDownloadURL } from 'firebase/storage';
 import image from '../assets/W016.jpg';
 import HomeWindow from './HomeWindow';
 import About from './About';
-import Contacts from './Contacts';
+import { ClipLoader } from 'react-spinners';
 
 export default function Home() {
-  const [backgroundImages, setBackgroundImages] = useState();
+  const [backgroundImages, setBackgroundImages] = useState<string[]>();
 
   const fetchImages = async () => {
     const storage = await getStorage();
     const imagesRef = await ref(storage, 'Numbers');
     const imagesList = await listAll(imagesRef);
 
-    const promises = Object.keys(imagesList['items']).map((imageRef) =>
-      // @ts-ignore
-      getDownloadURL(imagesList['items'][imageRef])
-    );
+    console.log(imagesList);
+
+    const promises = Object.keys(imagesList['items']).map((_, index) => {
+      return getDownloadURL(imagesList['items'][index]);
+    });
 
     return Promise.all(promises);
   };
 
   useEffect(() => {
     fetchImages().then((response) => {
-      // @ts-ignore
-      setBackgroundImages((prev) => {
-        return response;
-      });
+      setBackgroundImages(response);
     });
   }, []);
 
   return (
-    <div className='w-screen h-fit'>
-      {backgroundImages && (
+    <div className='flex flex-col w-screen grow'>
+      {backgroundImages ? (
         <>
           <HomeWindow images={backgroundImages} backgroundImage={image} />
           <About />
           {/* <Contacts /> */}
         </>
+      ) : (
+        <div className='flex items-center justify-center h-full grow'>
+          <ClipLoader color='#00aeff' />
+        </div>
       )}
     </div>
   );

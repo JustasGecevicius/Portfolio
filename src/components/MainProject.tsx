@@ -5,10 +5,9 @@ import githubSVG from '../assets/github-mark-white.svg';
 export interface MainProjectType {
   project: string;
   db: Firestore;
-  index: number;
 }
 
-export default function MainProject({ project, db, index }: MainProjectType) {
+export default function MainProject({ project, db }: MainProjectType) {
   const projectImages = useProjectImages(project, db);
   const projectText = useProjectText(project, db);
 
@@ -48,7 +47,7 @@ export default function MainProject({ project, db, index }: MainProjectType) {
               </button>
             </a>
           </div>
-          <p className='w-full mt-4 mb-2 border-b-2 border-white border-solid md:hidden'></p>
+          <p className='w-full mt-4 mb-2 border-b-2 border-white border-solid rounded-full md:hidden'></p>
         </div>
       </div>
     )

@@ -83,7 +83,7 @@ export default function About() {
           <span className='italic'> buttons on the right.</span>
         </motion.div>
         <motion.div
-          className='max-w-prose'
+          className='flex flex-row gap-2 max-w-prose'
           ref={ref3}
           animate={controls}
           initial='hidden'
@@ -91,7 +91,7 @@ export default function About() {
           <button type='button' className='resume' onClick={downloadPDF}>
             Resume
           </button>
-          <Link to='/Portfolio-Website/projects'>
+          <Link to='/Projects'>
             <button type='button' className='Projects'>
               Projects
             </button>

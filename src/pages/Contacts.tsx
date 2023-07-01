@@ -4,9 +4,9 @@ import linkedIn from '../assets/linkedin.png';
 
 export default function Contacts() {
   return (
-    <div className='fixed right-0 flex flex-col bg-[#242424] rounded-tl-xl rounded-bl-xl top-1/2 gap-y-2'>
+    <div className='flex flex-row bg-[#242424] gap-4'>
       <a
-        className='flex items-center justify-center p-2 aspect-square'
+        className='flex items-center justify-center p-2 aspect-square hover:ring-2 hover:ring-[#00aeff] rounded-xl'
         href='https://github.com/JustasGecevicius'
         target='_b'>
         <img
@@ -16,13 +16,13 @@ export default function Contacts() {
         />
       </a>
       <a
-        className='flex items-center justify-center p-2'
+        className='flex items-center justify-center p-2  hover:ring-2 hover:ring-[#00aeff] rounded-xl'
         href='mailto:justas.gecevicius.22@neoma-bs.com'
         target='_b'>
         <img className='w-10 aspect-square' src={gmail} alt='gmail' />
       </a>
       <a
-        className='flex items-center justify-center p-2'
+        className='flex items-center justify-center p-2  hover:ring-2 hover:ring-[#00aeff] rounded-xl'
         href='https://www.linkedin.com/in/justas-gecevicius-34aa94186/'
         target='_b'>
         <img className='w-10 aspect-square' src={linkedIn} alt='linkedIn' />

@@ -40,7 +40,7 @@ export default function ProjectCard({ title, images, text }: ProjectCardType) {
         <div className='w-full'>
           <img
             src={images[0]}
-            className='w-full rounded-md shadow-outline aspect-square md:rounded-lg'
+            className='w-full rounded-md shadow-outline aspect-square md:rounded-lg ring-[#00aeff] ring-2'
             alt='projectImage'
           />
         </div>

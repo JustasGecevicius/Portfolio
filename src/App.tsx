@@ -6,17 +6,18 @@ import Header from './components/Header';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import { Projects } from './pages/Projects';
+
 function App() {
   const config = getFirebaseConfig();
   const app = initializeApp(config);
-  const db = getFirestore(app);
+  getFirestore(app);
 
   return (
     <BrowserRouter>
       <Header />
       <Routes location={location} key={location.pathname}>
-        <Route path='/Portfolio-Website' element={<Home />} />
-        <Route path='/Portfolio-Website/Projects' element={<Projects />} />
+        <Route path='/' element={<Home />} />
+        <Route path='/Projects' element={<Projects />} />
       </Routes>
     </BrowserRouter>
   );
