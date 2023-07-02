@@ -14,11 +14,11 @@ function App() {
 
   return (
     // <div className='w-screen h-screen bg-red'></div>
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.DEV ? '/' : '/Portfolio/'}>
       <Header />
       <Routes location={location} key={location.pathname}>
-        <Route path='/Portfolio' element={<Home />} />
-        <Route path='/Portfolio/Projects' element={<Projects />} />
+        <Route path='/' element={<Home />} />
+        <Route path='/Projects' element={<Projects />} />
       </Routes>
     </BrowserRouter>
   );
