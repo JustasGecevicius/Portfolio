@@ -13,7 +13,6 @@ function App() {
   getFirestore(app);
 
   return (
-    // <div className='w-screen h-screen bg-red'></div>
     <BrowserRouter basename={import.meta.env.DEV ? '/' : '/Portfolio/'}>
       <Header />
       <Routes location={location} key={location.pathname}>
