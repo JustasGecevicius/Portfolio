@@ -1,5 +1,8 @@
-// @ts-ignore
-export default function HomeWindow({ images, backgroundImage }) {
+interface HomeWindowType {
+  backgroundImage: string;
+}
+
+export default function HomeWindow({ backgroundImage }: HomeWindowType) {
   return (
     <div
       className='flex flex-col justify-center h-screen p-10 bg-center bg-no-repeat bg-cover'

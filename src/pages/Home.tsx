@@ -6,31 +6,11 @@ import About from './About';
 import { ClipLoader } from 'react-spinners';
 
 export default function Home() {
-  const [backgroundImages, setBackgroundImages] = useState<string[]>();
-
-  const fetchImages = async () => {
-    const storage = await getStorage();
-    const imagesRef = await ref(storage, 'Numbers');
-    const imagesList = await listAll(imagesRef);
-
-    const promises = Object.keys(imagesList['items']).map((_, index) => {
-      return getDownloadURL(imagesList['items'][index]);
-    });
-
-    return Promise.all(promises);
-  };
-
-  useEffect(() => {
-    fetchImages().then((response) => {
-      setBackgroundImages(response);
-    });
-  }, []);
-
   return (
     <div className='flex flex-col w-screen grow'>
-      {backgroundImages ? (
+      {image ? (
         <>
-          <HomeWindow images={backgroundImages} backgroundImage={image} />
+          <HomeWindow backgroundImage={image} />
           <About />
         </>
       ) : (
