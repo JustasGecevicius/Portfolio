@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getStorage, ref, listAll, getDownloadURL } from 'firebase/storage';
-import image from '../assets/W016.jpg';
+import image from '../assets/W016.avif';
 import HomeWindow from './HomeWindow';
 import About from './About';
 import { ClipLoader } from 'react-spinners';

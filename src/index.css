@@ -36,6 +36,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
+  background-color: #242424;
 }
 
 a {
@@ -54,6 +55,7 @@ body {
   min-height: 100dvh;
   width: 100dvw;
   overflow-x: hidden;
+  background-color: #242424;
 }
 
 h1 {
@@ -78,17 +80,4 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #4bc6ff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
 }
