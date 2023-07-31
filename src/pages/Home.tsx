@@ -13,8 +13,6 @@ export default function Home() {
     const imagesRef = await ref(storage, 'Numbers');
     const imagesList = await listAll(imagesRef);
 
-    console.log(imagesList);
-
     const promises = Object.keys(imagesList['items']).map((_, index) => {
       return getDownloadURL(imagesList['items'][index]);
     });
@@ -34,7 +32,6 @@ export default function Home() {
         <>
           <HomeWindow images={backgroundImages} backgroundImage={image} />
           <About />
-          {/* <Contacts /> */}
         </>
       ) : (
         <div className='flex items-center justify-center h-full grow'>

@@ -9,8 +9,7 @@ export default function HomeWindow({ images, backgroundImage }) {
           Justas <br /> Gecevicius
         </h1>
         <h3 className='text-lg italic font-normal text-black md:text-2xl'>
-          {' '}
-          Front-end Web Developer{' '}
+          Front-end Web Developer
         </h3>
       </div>
     </div>
