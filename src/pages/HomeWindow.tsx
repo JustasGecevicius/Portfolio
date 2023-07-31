@@ -11,9 +11,9 @@ export default function HomeWindow({ backgroundImage }: HomeWindowType) {
         <h1 className='text-4xl font-normal text-black md:text-6xl'>
           Justas <br /> Gecevicius
         </h1>
-        <h3 className='text-lg italic font-normal text-black md:text-2xl'>
+        <p className='text-lg italic font-normal text-black md:text-2xl'>
           Front-end Web Developer
-        </h3>
+        </p>
       </div>
     </div>
   );

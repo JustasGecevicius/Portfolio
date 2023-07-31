@@ -15,20 +15,18 @@ export default function Header() {
           <h1>JG</h1>
         </Link>
         <div className='flex flex-row gap-x-5 md:pr-4'>
-          <Link to='/Projects' className='flex items-center'>
-            <h3 className='md:text-xl'>Projects</h3>
+          <Link to='/Projects' className='flex items-center md:text-xl'>
+            Projects
           </Link>
-          <a className='flex items-center h-full'>
-            <button
-              className='md:text-xl'
-              onClick={() => {
-                setContactsOpen(true);
-                // @ts-ignore
-                disableBodyScroll(modal);
-              }}>
-              Contacts
-            </button>
-          </a>
+          <button
+            className='md:text-xl text-sky-500'
+            onClick={() => {
+              setContactsOpen(true);
+              // @ts-ignore
+              disableBodyScroll(modal);
+            }}>
+            Contacts
+          </button>
         </div>
       </div>
       {contactsOpen && (
