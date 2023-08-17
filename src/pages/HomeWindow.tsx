@@ -5,16 +5,14 @@ interface HomeWindowType {
 export default function HomeWindow({ backgroundImage }: HomeWindowType) {
   return (
     <div
-      className='flex flex-col justify-center h-screen p-10 bg-center bg-no-repeat bg-cover'
+      className='flex flex-col justify-center h-screen p-5 bg-center bg-no-repeat bg-cover md:p-10 backgroundShadow'
       style={{ backgroundImage: `url(${backgroundImage})` }}>
-      <div className='p-2 bg-white rounded-3xl md:w-fit md:p-4'>
-        <h1 className='text-4xl font-normal text-black md:text-6xl'>
-          Justas <br /> Gecevicius
-        </h1>
-        <p className='text-lg italic font-normal text-black md:text-2xl'>
-          Front-end Web Developer
-        </p>
-      </div>
+      <h1 className='text-4xl font-extrabold text-white md:text-8xl md:font-extrabold md:w-fit'>
+        Hi, I'm <p className='md:inline-block text-shadow text-blue'>Justas</p>
+      </h1>
+      <p className='relative text-lg text-white md:text-4xl top-16'>
+        A Front-end Web Developer
+      </p>
     </div>
   );
 }

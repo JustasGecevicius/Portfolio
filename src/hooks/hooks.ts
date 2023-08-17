@@ -20,16 +20,17 @@ export const useProjectList = (db: Firestore) => {
   return projectList;
 };
 
-export const useProjectImages = (project: string, db: Firestore) => {
+export const useProjectImages = (project: string | undefined, db: Firestore) => {
   const [projectImages, setProjectImages] = useState<string[]>();
 
   useEffect(() => {
-    listAll(ref(getStorage(), project)).then((res) => {
-      const images = res['items'].map((imageRef) => getDownloadURL(imageRef));
-      Promise.all(images).then((res) => {
-        setProjectImages(res);
+    project &&
+      listAll(ref(getStorage(), project)).then((res) => {
+        const images = res['items'].map((imageRef) => getDownloadURL(imageRef));
+        Promise.all(images).then((res) => {
+          setProjectImages(res);
+        });
       });
-    });
   }, [project, db]);
 
   return projectImages;
