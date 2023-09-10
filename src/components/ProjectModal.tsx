@@ -11,16 +11,16 @@ interface ProjectModaltype {
 
 export default function ProjectModal({ setActive, images, text }: ProjectModaltype) {
   return (
-    <div className='fixed top-0 bottom-0 z-10 flex justify-center w-screen px-5 pt-8 '>
+    <div className='fixed top-0 bottom-0 z-10 flex justify-center w-screen px-5 pt-8'>
       <div className='fixed top-0 bottom-0 w-screen -z-10 bg-neutral-800'></div>
-      <div className='flex flex-col items-center w-screen gap-10 md:flex-row md:max-w-2xl'>
-        <p
-          className='fixed hover:ring-2 hover:ring-[#00aeff] top-0 right-0 flex items-center justify-center w-6 m-2 antialiased text-center text-[#00aeff] bg-white rounded-full md:text-2xl aspect-square md:w-10'
-          onClick={() => {
-            setActive(false);
-          }}>
-          &#10005;
-        </p>
+      <p
+        className='fixed hover:ring-2 hover:ring-[#00aeff] top-0 right-0 flex items-center justify-center w-6 m-2 antialiased text-center text-[#00aeff] bg-white rounded-full md:text-2xl aspect-square md:w-10'
+        onClick={() => {
+          setActive(false);
+        }}>
+        &#10005;
+      </p>
+      <div className='flex flex-col items-center w-screen gap-10 md:scale-150 md:flex-row md:max-w-2xl'>
         <div className='flex flex-col items-center w-full gap-5 p-1 overflow-y-auto basis-0 aspect-square grow rounded-xl h-fit'>
           {Object.values(images).map((elem, index) => {
             return (
