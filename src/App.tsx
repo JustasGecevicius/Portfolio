@@ -13,11 +13,11 @@ function App() {
   getFirestore(app);
 
   return (
-    <BrowserRouter basename={import.meta.env.DEV ? '/' : '/Portfolio/'}>
+    <BrowserRouter basename={'/'}>
       <Header />
       <Routes location={location} key={location.pathname}>
-        <Route path='/Portfolio' element={<Home />} />
-        <Route path='/Portfolio/Projects' element={<Projects />} />
+        <Route path='/' element={<Home />} />
+        <Route path='/Projects' element={<Projects />} />
       </Routes>
     </BrowserRouter>
   );
