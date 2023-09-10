@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Link } from 'react-router-dom';
 import { useState, useRef, useEffect, Suspense } from 'react';
 import Contacts from '../pages/Contacts';
@@ -62,7 +63,7 @@ export default function Header() {
           <div className='flex flex-row gap-x-5 md:pr-4'>
             <a
               onClick={() =>
-                document?.getElementById('projects').scrollIntoView({
+                document?.getElementById('projects')?.scrollIntoView({
                   block: 'start',
                   behavior: 'smooth',
                 })

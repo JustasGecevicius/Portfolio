@@ -23,6 +23,7 @@ export default function ThreeD() {
     if (!spinBlocked.current) {
       spinBlocked.current = true;
       const getNewCameraRotation = (rotation: string) => {
+        //@ts-ignore
         const currentRotation = THREE.MathUtils.radToDeg(group.current.rotation.y);
         const correctedRotation = Math.round(currentRotation / 90) * 90;
         return THREE.MathUtils.degToRad(
@@ -31,19 +32,23 @@ export default function ThreeD() {
       };
 
       rotationChoice === 'left'
-        ? gsap.to(group.current.rotation, {
+        ? //@ts-ignore
+          gsap.to(group.current.rotation, {
             y: () => getNewCameraRotation('right'),
             duration: 0.8,
             ease: 'power2',
           })
-        : gsap.to(group.current.rotation, {
+        : //@ts-ignore
+          gsap.to(group.current.rotation, {
             y: () => getNewCameraRotation('left'),
             duration: 0.8,
             ease: 'power2',
           });
 
       gsap
+        //@ts-ignore
         .to(group.current.position, {
+          //@ts-ignore
           y: () => group.current.position.y + 5,
           duration: 0.4,
           yoyoEase: true,
@@ -65,6 +70,7 @@ export default function ThreeD() {
           <Box
             position={[70, 10, 0]}
             item='three'
+            //@ts-ignore
             rotation={[0, THREE.MathUtils.degToRad(-90), 0]}
             text={'ThreeJS'}
             color={'white'}
@@ -72,6 +78,7 @@ export default function ThreeD() {
           <Box
             position={[0, 9.7, 70]}
             item='react'
+            //@ts-ignore
             rotation={[0, THREE.MathUtils.degToRad(180), 0]}
             text={'ReactJS'}
             color={'#61DBFB'}
@@ -79,6 +86,7 @@ export default function ThreeD() {
           <Box
             position={[-70, 10, 0]}
             item='node'
+            //@ts-ignore
             rotation={[0, THREE.MathUtils.degToRad(90), 0]}
             text={'NodeJS'}
             color={'#68A063'}
@@ -86,6 +94,7 @@ export default function ThreeD() {
           <Box
             position={[0, 9.5, -70]}
             item='redux'
+            //@ts-ignore
             rotation={[0, 0, 0]}
             text={'Redux'}
             color={'#764abc'}
@@ -119,11 +128,12 @@ function Base() {
   );
 }
 interface BoxType {
-  imageLink: string;
   position: [number, number, number];
+  rotation: [number, number, number];
   responsiveness?: number;
   item: string;
   text: string;
+  color: string;
 }
 
 function Box({ position, responsiveness = 5, item, rotation, text, color }: BoxType) {
@@ -144,6 +154,7 @@ function Box({ position, responsiveness = 5, item, rotation, text, color }: BoxT
     clicked
       ? setLocalPosition([position[0], position[1] + 5, position[2]])
       : setLocalPosition(position);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clicked]);
 
   useEffect(() => {
@@ -197,6 +208,7 @@ function Box({ position, responsiveness = 5, item, rotation, text, color }: BoxT
         <Center
           top
           center
+          //@ts-ignore
           position={textLocalPosition}
           rotation={rotation}
           castShadow
@@ -217,6 +229,7 @@ function Box({ position, responsiveness = 5, item, rotation, text, color }: BoxT
       </Float>
       <animated.mesh
         visible
+        //@ts-ignore
         position={localPosition}
         {...bind()}
         {...spring}
