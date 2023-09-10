@@ -7,7 +7,7 @@ interface HomeWindowType {
 }
 
 export default function HomeWindow({ backgroundImage }: HomeWindowType) {
-  const [displayBackground, setDisplayBackground] = useState(false);
+  const [displayBackground, setDisplayBackground] = useState(true);
 
   useEffect(() => {
     const handleWindowResize = () => {
@@ -42,7 +42,7 @@ export default function HomeWindow({ backgroundImage }: HomeWindowType) {
               floatIntensity={1}
               speed={5}
               rotationIntensity={0.2}
-              position={[0, -3, 0]}
+              position={[0, -4.5, 0]}
               floatingRange={[-0.01, 0.01]}
               scale={displayBackground ? 1.5 : 1.2}>
               <Center top>
