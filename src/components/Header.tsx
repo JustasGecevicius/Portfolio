@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { Link } from 'react-router-dom';
 import { useState, useRef, useEffect, Suspense } from 'react';
 import Contacts from '../pages/Contacts';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
