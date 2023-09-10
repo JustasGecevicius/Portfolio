@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <Suspense
       fallback={
-        <div className='flex items-center justify-center h-full grow'>
+        <div className='flex items-center justify-center w-screen h-screen grow'>
           <ClipLoader color='#00aeff' />
         </div>
       }>

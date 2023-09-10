@@ -26,7 +26,14 @@ export default function Header() {
           className={
             'fixed flex flex-row justify-between w-screen px-5 py-2 z-10 max-h-14 bg-[#00111a]'
           }>
-          <Link to='/' className='max-w-[70px] max-h-[70px]'>
+          <a
+            className='max-w-[100px]'
+            onClick={() =>
+              document?.getElementById('main')?.scrollIntoView({
+                block: 'start',
+                behavior: 'smooth',
+              })
+            }>
             <Canvas shadows camera={{ position: [0, 0, 10] }}>
               <Float
                 floatIntensity={1}
@@ -59,7 +66,7 @@ export default function Header() {
               <pointLight position={[-5, 0, 10]} intensity={200} color='#ffffff' />
               <pointLight position={[5, 0, 10]} intensity={200} color='#ffffff' />
             </Canvas>
-          </Link>
+          </a>
           <div className='flex flex-row gap-x-5 md:pr-4'>
             <a
               onClick={() =>

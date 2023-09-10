@@ -28,6 +28,7 @@ export default function HomeWindow({ backgroundImage }: HomeWindowType) {
         </div>
       }>
       <div
+        id='main'
         className='flex flex-col justify-center p-5 bg-left bg-no-repeat bg-cover h-extraScreen md:p-10 backgroundShadow'
         style={{
           backgroundImage: `${displayBackground ? `url(${backgroundImage})` : ''}`,
@@ -36,13 +37,13 @@ export default function HomeWindow({ backgroundImage }: HomeWindowType) {
           Hi, I'm
           <Canvas
             shadows
-            camera={{ position: [0, 0, 10], fov: 70 }}
-            className='max-h-[115px] max-w-[350px] md:max-w-[400px]'>
+            camera={{ position: [0, 0, 50], fov: 70, zoom: 6 }}
+            className='max-h-[115px] max-w-[350px] md:max-w-[450px]'>
             <Float
               floatIntensity={1}
               speed={5}
               rotationIntensity={0.2}
-              position={[0, -4.5, 0]}
+              position={[0, -4, 0]}
               floatingRange={[-0.01, 0.01]}
               scale={displayBackground ? 1.5 : 1.2}>
               <Center top>
@@ -60,8 +61,8 @@ export default function HomeWindow({ backgroundImage }: HomeWindowType) {
                 </Text3D>
               </Center>
             </Float>
-            <pointLight position={[-5, 0, 10]} intensity={200} color='#ffffff' />
-            <pointLight position={[5, 0, 10]} intensity={200} color='#ffffff' />
+            <pointLight position={[-5, 0, 10]} intensity={150} color='#ffffff' />
+            <pointLight position={[5, 0, 10]} intensity={150} color='#ffffff' />
           </Canvas>
         </h1>
         <p className='relative text-xl text-center text-white md:text-left md:text-4xl'>
