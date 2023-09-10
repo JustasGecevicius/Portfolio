@@ -44,7 +44,7 @@ export default function ProjectCard({ title, images, text }: ProjectCardType) {
             alt='projectImage'
           />
         </div>
-        <h3 className='pt-2 text-center md:text-lg'>{text['name']}</h3>
+        <h3 className='pt-2 text-lg text-center md:text-xl'>{text['name']}</h3>
       </motion.div>
     );
   }

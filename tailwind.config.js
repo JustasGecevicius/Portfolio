@@ -4,7 +4,9 @@ export default {
   theme: {
     extend: {
       height: {
-        screen: '100dvh',
+        screen: '100vh',
+        extraScreen: '110vh',
+        screen_half: 'calc(100dvh / 2)',
       },
       width: {
         screen: '100dvw',

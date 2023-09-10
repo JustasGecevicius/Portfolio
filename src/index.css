@@ -41,11 +41,10 @@
 
 a {
   font-weight: 500;
-  color: white;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #0087c5;
+  text-decoration: none;
+  &:hover{
+    cursor: pointer;
+  }
 }
 
 body {
@@ -72,9 +71,10 @@ button {
   font-family: inherit;
   cursor: pointer;
   transition: border-color 0.25s;
+  color: #00aeff;
 }
 button:hover {
-  color: #0087c5;
+  color: #4dc6ff;
 }
 button:focus,
 button:focus-visible {

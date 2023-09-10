@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, Suspense } from 'react';
 import Contacts from '../pages/Contacts';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
+import { Canvas } from '@react-three/fiber';
+import { Center, Float, Text3D } from '@react-three/drei';
 
 export default function Header() {
   const [contactsOpen, setContactsOpen] = useState(false);
@@ -18,30 +20,72 @@ export default function Header() {
 
   return (
     <>
-      <div
-        className={`fixed flex flex-row justify-between w-screen px-5 py-2 z-10 ${
-          !isTop && 'bg-[#00111a]'
-        }`}>
-        <Link to='/' className={`${!isTop && 'text-[#00aeff]'}`}>
-          <h1>JG</h1>
-        </Link>
-        <div className='flex flex-row gap-x-5 md:pr-4'>
-          <Link
-            to='/Projects'
-            className={`flex items-center md:text-xl ${!isTop && 'text-[#00aeff]'}`}>
-            Projects
+      <Suspense>
+        <div
+          className={
+            'fixed flex flex-row justify-between w-screen px-5 py-2 z-10 max-h-14 bg-[#00111a]'
+          }>
+          <Link to='/' className='max-w-[70px] max-h-[70px]'>
+            <Canvas shadows camera={{ position: [0, 0, 10] }}>
+              <Float
+                floatIntensity={1}
+                speed={5}
+                floatingRange={[-0.1, 0.1]}
+                rotationIntensity={0.2}
+                position={[0, -3, 3]}
+                onPointerLeave={(e) => {
+                  console.log(e);
+                  e.object.scale.set(1, 1, 1);
+                }}
+                onPointerEnter={(e) => {
+                  e.object.scale.set(1.1, 1.1, 1.1);
+                }}>
+                <Center top>
+                  <Text3D
+                    font={'/Poppins Medium_Regular.json'}
+                    size={5.5}
+                    bevelEnabled
+                    bevelSize={0.2}
+                    bevelSegments={5}
+                    height={2}
+                    receiveShadow
+                    castShadow>
+                    JG
+                    <meshStandardMaterial color={'#00aeff'} />
+                  </Text3D>
+                </Center>
+              </Float>
+              <pointLight position={[-5, 0, 10]} intensity={200} color='#ffffff' />
+              <pointLight position={[5, 0, 10]} intensity={200} color='#ffffff' />
+            </Canvas>
           </Link>
-          <button
-            className={`md:text-xl ${!isTop && 'text-[#00aeff]'}`}
-            onClick={() => {
-              setContactsOpen(true);
-              // @ts-ignore
-              disableBodyScroll(modal);
-            }}>
-            Contacts
-          </button>
+          <div className='flex flex-row gap-x-5 md:pr-4'>
+            <a
+              onClick={() =>
+                document?.getElementById('projects').scrollIntoView({
+                  block: 'start',
+                  behavior: 'smooth',
+                })
+              }
+              className={`md:text-xl ${
+                !isTop && 'text-[#00aeff]'
+              } flex items-center hover:text-light_blue`}>
+              Projects
+            </a>
+            <button
+              className={`md:text-xl ${
+                !isTop ? 'text-[#00aeff]' : 'text-white'
+              } flex items-center hover:text-light_blue`}
+              onClick={() => {
+                setContactsOpen(true);
+                // @ts-ignore
+                disableBodyScroll(modal);
+              }}>
+              Contacts
+            </button>
+          </div>
         </div>
-      </div>
+      </Suspense>
       {contactsOpen && (
         <div className='fixed top-0 bottom-0 flex items-center justify-center w-screen bg-[#242424] z-10'>
           <p
