@@ -2,17 +2,19 @@ import { Center, Float, Text3D } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { useState, useEffect, Suspense } from 'react';
 import { ClipLoader } from 'react-spinners';
-interface HomeWindowType {
-  backgroundImage: string;
-}
 
-export default function HomeWindow({ backgroundImage }: HomeWindowType) {
+export default function HomeWindow() {
   const [displayBackground, setDisplayBackground] = useState(true);
 
   useEffect(() => {
     const handleWindowResize = () => {
+      console.log(window.innerWidth, 'RESIZE');
       setDisplayBackground(window.innerWidth < 768 ? false : true);
     };
+
+    if (window.innerWidth < 768) {
+      setDisplayBackground(false);
+    }
 
     window.addEventListener('resize', handleWindowResize);
 
@@ -29,10 +31,7 @@ export default function HomeWindow({ backgroundImage }: HomeWindowType) {
       }>
       <div
         id='main'
-        className='flex flex-col justify-center p-5 bg-left bg-no-repeat bg-cover h-extraScreen md:p-10 backgroundShadow'
-        style={{
-          backgroundImage: `${displayBackground ? `url(${backgroundImage})` : ''}`,
-        }}>
+        className='flex flex-col justify-center p-5 bg-transparent h-extraScreen md:p-10'>
         <h1 className='flex flex-col items-center justify-center text-5xl font-extrabold text-center text-white md:justify-start md:flex-row md:text-left md:text-8xl md:font-extrabold'>
           Hi, I'm
           <Canvas
@@ -49,7 +48,7 @@ export default function HomeWindow({ backgroundImage }: HomeWindowType) {
               <Center top>
                 <Text3D
                   font={'/Poppins Medium_Regular.json'}
-                  size={5.5}
+                  size={5}
                   bevelEnabled
                   bevelSize={0.15}
                   bevelSegments={5}

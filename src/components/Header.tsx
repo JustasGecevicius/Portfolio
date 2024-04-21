@@ -17,13 +17,13 @@ export default function Header() {
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, { passive: true });
   }, []);
-
+  
   return (
     <>
       <Suspense>
         <div
           className={
-            'fixed flex flex-row justify-between w-screen px-5 py-2 z-10 max-h-14 bg-[#00111a]'
+            'fixed flex flex-row justify-between w-screen px-5 py-2 z-20 max-h-14 bg-[#00111a]'
           }>
           <a
             className='max-w-[100px]'
@@ -94,7 +94,7 @@ export default function Header() {
         </div>
       </Suspense>
       {contactsOpen && (
-        <div className='fixed top-0 bottom-0 flex items-center justify-center w-screen bg-[#242424] z-10'>
+        <div className='fixed top-0 bottom-0 flex items-center justify-center w-screen bg-[#242424] z-30'>
           <p
             className='fixed hover:ring-2 hover:ring-[#00aeff] top-0 right-0 flex items-center justify-center w-6 m-2 antialiased text-center text-[#00aeff] bg-white rounded-full md:text-2xl aspect-square md:w-10'
             onClick={() => {
