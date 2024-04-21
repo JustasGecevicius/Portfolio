@@ -15,7 +15,7 @@ export default function Home() {
           <ClipLoader color='#00aeff' />
         </div>
       }>
-      <div className='relative z-10 flex flex-col w-screen grow'>
+      <div className='relative flex flex-col w-screen grow'>
         <HomeWindow />
         <About />
         <TechStack />

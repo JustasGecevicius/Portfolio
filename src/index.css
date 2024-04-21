@@ -23,7 +23,6 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #00111a;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -36,15 +35,11 @@
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
-  background-color: #00111a;
 }
 
 a {
   font-weight: 500;
   text-decoration: none;
-  &:hover{
-    cursor: pointer;
-  }
 }
 
 body {

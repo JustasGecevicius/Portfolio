@@ -23,7 +23,7 @@ export default function Header() {
       <Suspense>
         <div
           className={
-            'fixed flex flex-row justify-between w-screen px-5 py-2 z-20 max-h-14 bg-[#00111a]'
+            'fixed flex flex-row justify-between w-screen px-5 py-2 z-10 max-h-14 bg-[#00111a]'
           }>
           <a
             className='max-w-[100px]'

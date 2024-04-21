@@ -1,18 +1,10 @@
 :root {
-  --color-bg1: rgb(108, 0, 162);
-  --color-bg2: rgb(0, 17, 82);
-  --color1: 18, 113, 255;
-  --color2: 221, 74, 255;
-  --color3: 100, 220, 255;
-  --color4: 200, 50, 50;
-  --color5: 180, 180, 50;
-  --color-interactive: 140, 100, 255;
-  --circle-size: 80%;
-  --blending: hard-light;
-}
+  --circle-size: 80%
+  --dark-blue: '#005780',
+  }
 
 @keyframes moveInCircle {
-  0% {
+0% {
     transform: rotate(0deg);
   }
   50% {
@@ -47,19 +39,14 @@
   }
 }
 
+.gradient-container {
+  filter: url(#goo) blur(40px);
+}
 
 .gradient-bg {
-  svg {
-    display: none;
-  }
 
-
-  .gradients-container {
-    width: 100%;
-    height: 100%;
-  }
   .g1, .g3, .g4, .g5, .g6, .interactive{
-    background: radial-gradient(circle at center, rgba(#0082BE, 0.8) 0, rgba(#0082BE, 0) 50%) no-repeat;
+    background: radial-gradient(circle at center, rgba(--dark-blue, 0.8) 0, rgba(--dark-blue, 0) 40%) no-repeat;
   }
   .g1 {
     top: calc(50% - var(--circle-size) / 2);

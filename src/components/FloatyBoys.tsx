@@ -9,7 +9,7 @@ export const FloatyBoys = () => {
       if (!interBubble) return;
       requestAnimationFrame(() => {
         interBubble.style.transform = `translate(${Math.round(event.clientX) - 150}px, ${
-          Math.round(event.clientY) - 150
+          Math.round(event.clientY) - 300
         }px)`;
       });
     });
@@ -31,7 +31,7 @@ export const FloatyBoys = () => {
           </filter>
         </defs>
       </svg>
-      <div className='gradient-container filter-[url(#goo) blur(40px)]'>
+      <div className='w-screen h-screen gradient-container'>
         {new Array(5).fill(0).map((_, index) => (
           <FloatyBoy index={index + 1} key={uniqueId()} />
         ))}
