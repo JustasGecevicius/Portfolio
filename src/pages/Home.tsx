@@ -1,11 +1,11 @@
 import { lazy, Suspense } from "react";
 import { ClipLoader } from "react-spinners";
-import { Projects } from "./Projects";
-import TechStack from "./TechStack";
 import { FloatyBoys } from "../components/FloatyBoys";
 
 const HomeWindow = lazy(() => import("./HomeWindow"));
 const About = lazy(() => import("./About"));
+const TechStack = lazy(() => import("./TechStack"));
+const Projects = lazy(() => import("./Projects"));
 
 export default function Home() {
   return (
