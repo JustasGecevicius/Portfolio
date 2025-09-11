@@ -1,19 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { Canvas, useThree } from '@react-three/fiber';
-import {
-  Center,
-  Clone,
-  Float,
-  PerspectiveCamera,
-  Text3D,
-  useGLTF,
-} from '@react-three/drei';
-import * as THREE from 'three';
-import { useSpring, animated } from '@react-spring/three';
-import { useDrag } from 'react-use-gesture';
-import gsap from 'gsap';
-import { debounce } from 'lodash';
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Canvas, useThree } from "@react-three/fiber";
+import { Center, Clone, Float, PerspectiveCamera, Text3D, useGLTF } from "@react-three/drei";
+import * as THREE from "three";
+import { useSpring, animated } from "@react-spring/three";
+import { useDrag } from "react-use-gesture";
+import gsap from "gsap";
+import { debounce } from "lodash";
 
 export default function ThreeD() {
   const group = useRef(null);
@@ -27,22 +20,22 @@ export default function ThreeD() {
         const currentRotation = THREE.MathUtils.radToDeg(group.current.rotation.y);
         const correctedRotation = Math.round(currentRotation / 90) * 90;
         return THREE.MathUtils.degToRad(
-          rotation === 'left' ? correctedRotation + 90 : correctedRotation - 90
+          rotation === "left" ? correctedRotation + 90 : correctedRotation - 90
         );
       };
 
-      rotationChoice === 'left'
+      rotationChoice === "left"
         ? //@ts-ignore
           gsap.to(group.current.rotation, {
-            y: () => getNewCameraRotation('right'),
+            y: () => getNewCameraRotation("right"),
             duration: 0.8,
-            ease: 'power2',
+            ease: "power2",
           })
         : //@ts-ignore
           gsap.to(group.current.rotation, {
-            y: () => getNewCameraRotation('left'),
+            y: () => getNewCameraRotation("left"),
             duration: 0.8,
-            ease: 'power2',
+            ease: "power2",
           });
 
       gsap
@@ -53,7 +46,7 @@ export default function ThreeD() {
           duration: 0.4,
           yoyoEase: true,
           repeat: 1,
-          ease: 'bounce.out',
+          ease: "bounce.out",
         })
         .then(() => {
           spinBlocked.current = false;
@@ -62,53 +55,51 @@ export default function ThreeD() {
   };
 
   return (
-    <div className='relative w-screen h-[70vh] px-2'>
-      <Canvas shadows={'soft'} camera={{ position: [0, 0, 0] }} className='w-full px-5'>
-        <pointLight position={[-20, 10, -60]} intensity={1500} color='#ffffff' />
-        <pointLight position={[20, 10, -60]} intensity={1500} color='#ffffff' />
+    <div className="relative w-screen h-[70vh] px-2">
+      <Canvas shadows={"soft"} camera={{ position: [0, 0, 0] }} className="w-full px-5">
+        <pointLight position={[-20, 10, -60]} intensity={1500} color="#ffffff" />
+        <pointLight position={[20, 10, -60]} intensity={1500} color="#ffffff" />
         <group ref={group}>
           <Box
             position={[70, 10, 0]}
-            item='three'
+            item="three"
             //@ts-ignore
             rotation={[0, THREE.MathUtils.degToRad(-90), 0]}
-            text={'ThreeJS'}
-            color={'white'}
+            text={"ThreeJS"}
+            color={"white"}
           />
           <Box
             position={[0, 9.7, 70]}
-            item='react'
+            item="react"
             //@ts-ignore
             rotation={[0, THREE.MathUtils.degToRad(180), 0]}
-            text={'ReactJS'}
-            color={'#61DBFB'}
+            text={"ReactJS"}
+            color={"#61DBFB"}
           />
           <Box
             position={[-70, 10, 0]}
-            item='node'
+            item="node"
             //@ts-ignore
             rotation={[0, THREE.MathUtils.degToRad(90), 0]}
-            text={'NodeJS'}
-            color={'#68A063'}
+            text={"NodeJS"}
+            color={"#68A063"}
           />
           <Box
             position={[0, 9.5, -70]}
-            item='redux'
+            item="redux"
             //@ts-ignore
             rotation={[0, 0, 0]}
-            text={'Redux'}
-            color={'#764abc'}
+            text={"Redux"}
+            color={"#764abc"}
           />
         </group>
         <Base></Base>
         <Camera></Camera>
       </Canvas>
-      <button className='absolute left-2 top-1/2 md:text-xl' onClick={() => spin('left')}>
+      <button className="absolute left-2 top-1/2 md:text-xl" onClick={() => spin("left")}>
         Left
       </button>
-      <button
-        className='absolute right-2 top-1/2 md:text-xl'
-        onClick={() => spin('right')}>
+      <button className="absolute right-2 top-1/2 md:text-xl" onClick={() => spin("right")}>
         Right
       </button>
     </div>
@@ -123,7 +114,7 @@ function Base() {
   return (
     <mesh visible position={[0, 2, -70]} receiveShadow={true} castShadow={true}>
       <boxGeometry args={[17, 1, 17]} />
-      <meshStandardMaterial color={'white'} />
+      <meshStandardMaterial color={"white"} />
     </mesh>
   );
 }
@@ -169,10 +160,10 @@ function Box({ position, responsiveness = 5, item, rotation, text, color }: BoxT
   }
 
   const modelPaths: ModelPathsType = {
-    react: './models/React.glb',
-    node: './models/Node.glb',
-    redux: './models/Redux.glb',
-    three: './models/Three.glb',
+    react: "./models/React.glb",
+    node: "./models/Node.glb",
+    redux: "./models/Redux.glb",
+    three: "./models/Three.glb",
   };
 
   const { scene } = useGLTF(modelPaths[item as keyof ModelPathsType]);
@@ -182,13 +173,13 @@ function Box({ position, responsiveness = 5, item, rotation, text, color }: BoxT
       debouncedClick();
     }
     euler.y += (dx / size.width) * responsiveness;
-    if (item === 'redux') {
+    if (item === "redux") {
       euler.x += (dy / size.width) * responsiveness;
-    } else if (item === 'node') {
+    } else if (item === "node") {
       euler.z += (-dy / size.width) * responsiveness;
-    } else if (item === 'react') {
+    } else if (item === "react") {
       euler.x += (-dy / size.width) * responsiveness;
-    } else if (item === 'mongo') {
+    } else if (item === "mongo") {
       euler.z += (dy / size.width) * responsiveness;
     }
     //@ts-ignore
@@ -196,7 +187,6 @@ function Box({ position, responsiveness = 5, item, rotation, text, color }: BoxT
   });
 
   return (
-    //@ts-ignore
     <>
       <Float
         floatIntensity={50}
@@ -204,7 +194,8 @@ function Box({ position, responsiveness = 5, item, rotation, text, color }: BoxT
         floatingRange={[-0.005, 0.005]}
         rotationIntensity={0.05}
         castShadow
-        receiveShadow>
+        receiveShadow
+      >
         <Center
           top
           center
@@ -212,18 +203,20 @@ function Box({ position, responsiveness = 5, item, rotation, text, color }: BoxT
           position={textLocalPosition}
           rotation={rotation}
           castShadow
-          receiveShadow>
+          receiveShadow
+        >
           <Text3D
-            font={'/Poppins Medium_Regular.json'}
+            font={"/Poppins Medium_Regular.json"}
             size={5}
             bevelEnabled
             bevelSize={0.2}
             bevelSegments={5}
             height={2}
             receiveShadow
-            castShadow>
+            castShadow
+          >
             {text}
-            <meshStandardMaterial color={color || 'white'} clipShadows />
+            <meshStandardMaterial color={color || "white"} clipShadows />
           </Text3D>
         </Center>
       </Float>
@@ -235,7 +228,8 @@ function Box({ position, responsiveness = 5, item, rotation, text, color }: BoxT
         {...spring}
         receiveShadow={true}
         castShadow={true}
-        scale={1.5}>
+        scale={1.5}
+      >
         <Clone object={scene} scale={5} castShadow receiveShadow />
       </animated.mesh>
     </>
