@@ -37,6 +37,12 @@
   min-height: 100dvh;
 }
 
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 a {
   font-weight: 500;
   text-decoration: none;
