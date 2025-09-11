@@ -16,8 +16,9 @@ const SmallProject = lazy(() => import("../components/SmallProject"));
 export default function Projects() {
   const projectsList = useProjectList(db);
   const { ref, inView } = useInView({
-    threshold: 0.05,
+    threshold: 0.1,
     triggerOnce: true,
+    rootMargin: "50px",
   });
 
   return (
