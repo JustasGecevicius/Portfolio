@@ -24,10 +24,9 @@ export default function Projects() {
   return (
     <div
       ref={ref}
-      className="flex flex-col min-h-full p-4 overflow-x-hidden grow md:p-10"
+      className="flex flex-col p-4 overflow-x-hidden grow min-h-screen md:p-10"
       id="projects"
     >
-      <h2 className="text-lg text-center md:text-xl text-white_blue">Projects</h2>
       {inView ? (
         <Suspense
           fallback={
@@ -36,8 +35,9 @@ export default function Projects() {
             </div>
           }
         >
+          <h2 className="text-lg text-center md:text-xl text-white_blue">Projects</h2>
           <div className="pt-2">
-            {projectsList?.MainProjects && (
+            {projectsList?.MainProjects?.length && (
               <div className="pt-2 md:pt-8">
                 <h3 className="text-3xl font-semibold text-center md:text-5xl">Main Projects</h3>
                 <div className="[&>*:nth-child(odd)]:md:flex-row-reverse">
@@ -47,7 +47,7 @@ export default function Projects() {
                 </div>
               </div>
             )}
-            {projectsList?.SmallProjects && (
+            {projectsList?.SmallProjects?.length && (
               <div className="pt-4">
                 <h3 className="text-3xl font-semibold text-center md:pt-10 md:text-5xl">
                   Smaller Projects

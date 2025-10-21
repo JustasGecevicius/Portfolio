@@ -12,7 +12,10 @@ export default function TechStack() {
   });
 
   return (
-    <div ref={ref} className="flex flex-col items-center justify-start w-screen p-5 h-fit">
+    <div
+      ref={ref}
+      className="flex flex-col items-center justify-start w-screen min-h-screen p-5 h-fit"
+    >
       <h2 className="text-3xl font-bold max-w-prose">Tech</h2>
       {inView ? (
         <Suspense

@@ -1,8 +1,16 @@
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { AnimatePresence, easeInOut, motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { memo, useRef } from "react";
 
-export default function About() {
+const variants = {
+  hidden: { opacity: 0, x: -200 },
+  visible: { opacity: 1, x: 0, transition: { duration: 1, ease: easeInOut } },
+};
+
+function About() {
+  const refference = useRef(null);
+  const inView = useInView(refference, { once: true });
+
   const downloadPDF = async () => {
     try {
       const storage = await getStorage();
@@ -15,27 +23,12 @@ export default function About() {
       console.log(error);
     }
   };
-  const refference = useRef(null);
-  const inView = useInView(refference);
 
   function Animation() {
     return (
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {inView && (
-          <motion.div
-            animate={{
-              opacity: 1,
-              transition: { duration: 1, ease: easeInOut },
-              x: 0,
-            }}
-            initial={{ opacity: 0, x: -200 }}
-            exit={{
-              x: -200,
-              opacity: 0,
-              transition: { duration: 1, ease: easeInOut },
-            }}
-            key="dalykai"
-          >
+          <motion.div variants={variants} initial="hidden" animate="visible">
             <p className="text-lg text-center max-w-prose text-white_blue md:text-xl">Intro</p>
             <h2 className="text-3xl font-bold text-center max-w-prose md:text-4xl">About Me</h2>
             <div className="mt-4 text-justify max-w-prose md:text-lg">
@@ -75,3 +68,5 @@ export default function About() {
     </div>
   );
 }
+
+export default memo(About);
