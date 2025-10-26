@@ -22,12 +22,14 @@ export default function Header() {
 
   const onMouseEnter = useCallback(() => {
     if (objectRef?.current) {
+      // @ts-ignore
       objectRef.current.scale.set(1.1, 1.1, 1.1);
     }
   }, []);
 
   const onMouseLeave = useCallback(() => {
     if (objectRef?.current) {
+      // @ts-ignore
       objectRef.current.scale.set(1, 1, 1);
     }
   }, []);
@@ -48,11 +50,13 @@ export default function Header() {
 
   const onClickContacts = useCallback(() => {
     setContactsOpen(true);
+    // @ts-ignore
     disableBodyScroll(modal);
   }, []);
 
   const onClickOutsideContactsModal = useCallback(() => {
     setContactsOpen(false);
+    // @ts-ignore
     enableBodyScroll(modal);
   }, []);
 

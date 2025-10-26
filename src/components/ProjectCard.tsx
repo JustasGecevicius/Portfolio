@@ -31,8 +31,10 @@ export default function ProjectCard({ title, images, text, inView }: ProjectCard
 
   useEffect(() => {
     if (active) {
+      // @ts-ignore
       disableBodyScroll(modalRef);
     } else {
+      // @ts-ignore
       enableBodyScroll(modalRef);
     }
   }, [active]);
