@@ -21,6 +21,11 @@ export default function Projects() {
     rootMargin: "50px",
   });
 
+  const { ref: smallProjectInViewRef, inView: smallProjectInView } = useInView({
+    threshold: 0.5,
+    triggerOnce: true,
+  });
+
   return (
     <div
       ref={ref}
@@ -48,13 +53,18 @@ export default function Projects() {
               </div>
             )}
             {projectsList?.SmallProjects?.length && (
-              <div className="pt-4">
+              <div className="pt-4" ref={smallProjectInViewRef}>
                 <h3 className="text-3xl font-semibold text-center md:pt-10 md:text-5xl">
                   Smaller Projects
                 </h3>
                 <div className="flex flex-row flex-wrap justify-center gap-3 pt-2 md:pt-10 md:gap-6">
                   {projectsList.SmallProjects.map((project, index) => (
-                    <SmallProject project={project} db={db} key={index} />
+                    <SmallProject
+                      project={project}
+                      db={db}
+                      key={index}
+                      inView={smallProjectInView}
+                    />
                   ))}
                 </div>
               </div>

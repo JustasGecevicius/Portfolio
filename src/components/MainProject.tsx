@@ -6,6 +6,7 @@ import { ClipLoader } from "react-spinners";
 export interface MainProjectType {
   project: string;
   db: Firestore;
+  inView?: boolean;
 }
 
 export default function MainProject({ project, db }: MainProjectType) {

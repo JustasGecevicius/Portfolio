@@ -1,6 +1,6 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState } from "react";
 import { ClipLoader } from "react-spinners";
-import { FloatyBoys } from "../components/FloatyBoys";
+import { MemoizedFloatyBoys } from "../components/FloatyBoys/FloatyBoys";
 
 const HomeWindow = lazy(() => import("./HomeWindow"));
 const About = lazy(() => import("./About"));
@@ -8,6 +8,8 @@ const TechStack = lazy(() => import("./TechStack"));
 const Projects = lazy(() => import("./Projects"));
 
 export default function Home() {
+  const [isWaitingOnAboutAnimation, setIsWaitingOnAboutAnimation] = useState(true);
+
   return (
     <Suspense
       fallback={
@@ -18,10 +20,10 @@ export default function Home() {
     >
       <div className="relative flex flex-col w-screen grow">
         <HomeWindow />
-        <About />
-        <TechStack />
+        <About setIsWaitingOnAboutAnimation={setIsWaitingOnAboutAnimation} />
+        <TechStack isWaitingOnAboutAnimation={isWaitingOnAboutAnimation} />
         <Projects />
-        <FloatyBoys />
+        <MemoizedFloatyBoys />
       </div>
     </Suspense>
   );

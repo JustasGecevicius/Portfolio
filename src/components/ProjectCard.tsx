@@ -1,72 +1,60 @@
-import { useRef, useState, useEffect } from 'react';
-import ProjectModal from './ProjectModal';
-import { motion, useAnimation } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { ProjectTextType } from '../hooks/hooks';
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
+import { useRef, useState, useEffect } from "react";
+import ProjectModal from "./ProjectModal";
+import { ProjectTextType } from "../hooks/hooks";
+import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 interface ProjectCardType {
   title: string;
   images: string[];
   text: ProjectTextType;
+  inView?: boolean;
 }
 
-export default function ProjectCard({ title, images, text }: ProjectCardType) {
-  const squareVariants = {
-    visible: { opacity: 1, scale: 1, transition: { duration: 1 }, x: 0 },
-    hidden: { opacity: 0, scale: 1, x: '-100%' },
-  };
+export default function ProjectCard({ title, images, text, inView }: ProjectCardType) {
+  const ref = useRef(null);
+  const modalRef = useRef(null);
+  useGSAP(
+    () => {
+      inView &&
+        gsap.fromTo(ref.current, { opacity: 0, x: -400 }, { opacity: 1, x: 0, duration: 0.5 });
+    },
+    { scope: ref, dependencies: [inView] }
+  );
 
-  function Animation() {
-    const controls = useAnimation();
-
-    const [ref, inView] = useInView();
-
-    useEffect(() => {
-      if (inView) {
-        controls.start('visible');
-      }
-    }, [controls, inView]);
-
-    return (
-      <motion.div
-        animate={controls}
-        ref={ref}
-        initial='hidden'
-        variants={squareVariants}
-        onClick={openProjectDiv}
-        whileHover={{ scale: 1.1 }}
-        className='w-5/12 md:w-2/12'>
-        <div className='w-full'>
-          <img
-            src={images[0]}
-            className='w-full rounded-md shadow-outline aspect-square md:rounded-lg ring-[#00aeff] ring-2'
-            alt='projectImage'
-          />
-        </div>
-        <h3 className='pt-2 text-lg text-center md:text-xl'>{text['name']}</h3>
-      </motion.div>
-    );
-  }
   const [active, setActive] = useState(false);
 
   const openProjectDiv = () => {
     setActive((prev) => !prev);
   };
 
-  const modal = useRef(null);
-  // @ts-ignore
-  active ? disableBodyScroll(modal) : enableBodyScroll(modal);
+  useEffect(() => {
+    if (active) {
+      disableBodyScroll(modalRef);
+    } else {
+      enableBodyScroll(modalRef);
+    }
+  }, [active]);
 
   return active ? (
-    <ProjectModal
-      title={title}
-      setActive={setActive}
-      images={images}
-      text={text}
-      ref={modal}
-    />
+    <ProjectModal title={title} setActive={setActive} images={images} text={text} ref={modalRef} />
   ) : (
-    <Animation />
+    inView && (
+      <div
+        ref={ref}
+        onClick={openProjectDiv}
+        className="w-5/12 md:w-2/12 hover:cursor-pointer hover:scale-110 transition-transform duration-300"
+      >
+        <div className="w-full">
+          <img
+            src={images[0]}
+            className="w-full rounded-md shadow-outline aspect-square md:rounded-lg ring-[#00aeff] ring-2"
+            alt="projectImage"
+          />
+        </div>
+        <h3 className="pt-2 text-lg text-center md:text-xl">{text["name"]}</h3>
+      </div>
+    )
   );
 }
