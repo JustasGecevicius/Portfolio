@@ -18,11 +18,7 @@ export default function ProjectCard({ title, images, text, inView }: ProjectCard
   useGSAP(
     () => {
       inView &&
-        gsap.fromTo(
-          ref.current,
-          { opacity: 0, x: -200 },
-          { opacity: 1, x: 0, duration: 0.5, delay: 1, ease: "power2.out" }
-        );
+        gsap.fromTo(ref.current, { opacity: 0, x: -400 }, { opacity: 1, x: 0, duration: 0.5 });
     },
     { scope: ref, dependencies: [inView] }
   );

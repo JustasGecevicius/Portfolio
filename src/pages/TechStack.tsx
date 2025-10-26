@@ -2,7 +2,7 @@ import { lazy, Suspense } from "react";
 import { useInView } from "react-intersection-observer";
 import { ClipLoader } from "react-spinners";
 
-const ThreeD = lazy(() => import("./3D"));
+const ThreeD = lazy(() => import("./3D/3D"));
 
 export default function TechStack() {
   const { ref, inView } = useInView({
