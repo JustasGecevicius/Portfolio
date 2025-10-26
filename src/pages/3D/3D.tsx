@@ -4,56 +4,55 @@ import * as THREE from "three";
 import gsap from "gsap";
 import { CANVAS_POSITION } from "./constants";
 import { componentConstants, pointLightComponentConstants } from "./component_constants";
-import { Camera } from "./camera";
-import { Base } from "./base";
 import { Box } from "./box";
+import Base from "./base";
+import Camera from "./camera";
 
 export default function ThreeD() {
   const group = useRef(null);
   const spinBlocked = useRef(false);
 
-  const spin = (rotationChoice: string) =>
-    useCallback(() => {
-      if (!spinBlocked.current) {
-        spinBlocked.current = true;
-        const getNewCameraRotation = (rotation: string) => {
-          //@ts-ignore
-          const currentRotation = THREE.MathUtils.radToDeg(group.current.rotation.y);
-          const correctedRotation = Math.round(currentRotation / 90) * 90;
-          return THREE.MathUtils.degToRad(
-            rotation === "left" ? correctedRotation + 90 : correctedRotation - 90
-          );
-        };
+  const spin = useCallback((rotationChoice: string) => {
+    if (!spinBlocked.current) {
+      spinBlocked.current = true;
+      const getNewCameraRotation = (rotation: string) => {
+        //@ts-ignore
+        const currentRotation = THREE.MathUtils.radToDeg(group.current.rotation.y);
+        const correctedRotation = Math.round(currentRotation / 90) * 90;
+        return THREE.MathUtils.degToRad(
+          rotation === "left" ? correctedRotation + 90 : correctedRotation - 90
+        );
+      };
 
-        rotationChoice === "left"
-          ? //@ts-ignore
-            gsap.to(group.current.rotation, {
-              y: () => getNewCameraRotation("right"),
-              duration: 0.8,
-              ease: "power2",
-            })
-          : //@ts-ignore
-            gsap.to(group.current.rotation, {
-              y: () => getNewCameraRotation("left"),
-              duration: 0.8,
-              ease: "power2",
-            });
-
-        gsap
-          //@ts-ignore
-          .to(group.current.position, {
-            //@ts-ignore
-            y: () => group.current.position.y + 5,
-            duration: 0.4,
-            yoyoEase: true,
-            repeat: 1,
-            ease: "bounce.out",
+      rotationChoice === "left"
+        ? //@ts-ignore
+          gsap.to(group.current.rotation, {
+            y: () => getNewCameraRotation("right"),
+            duration: 0.8,
+            ease: "power2",
           })
-          .then(() => {
-            spinBlocked.current = false;
+        : //@ts-ignore
+          gsap.to(group.current.rotation, {
+            y: () => getNewCameraRotation("left"),
+            duration: 0.8,
+            ease: "power2",
           });
-      }
-    }, []);
+
+      gsap
+        //@ts-ignore
+        .to(group.current.position, {
+          //@ts-ignore
+          y: () => group.current.position.y + 5,
+          duration: 0.4,
+          yoyoEase: true,
+          repeat: 1,
+          ease: "bounce.out",
+        })
+        .then(() => {
+          spinBlocked.current = false;
+        });
+    }
+  }, []);
 
   const handleLeftSpin = useCallback(() => spin("left"), [spin]);
   const handleRightSpin = useCallback(() => spin("right"), [spin]);
@@ -66,7 +65,14 @@ export default function ThreeD() {
         ))}
         <group ref={group}>
           {componentConstants.map(({ position, item, rotation, text, color }) => (
-            <Box position={position} item={item} rotation={rotation} text={text} color={color} />
+            <Box
+              key={item}
+              position={position}
+              item={item}
+              rotation={rotation}
+              text={text}
+              color={color}
+            />
           ))}
         </group>
         <Base />

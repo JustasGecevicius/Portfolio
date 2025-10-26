@@ -1,6 +1,7 @@
+import { memo } from "react";
 import { BASE_MESH_POSITION, BOX_GEOMETRY_ARGS } from "./constants";
 
-export function Base() {
+function BaseComponent() {
   return (
     <mesh visible position={BASE_MESH_POSITION} receiveShadow={true} castShadow={true}>
       <boxGeometry args={BOX_GEOMETRY_ARGS} />
@@ -8,3 +9,5 @@ export function Base() {
     </mesh>
   );
 }
+
+export default memo(BaseComponent);
