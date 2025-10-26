@@ -1,9 +1,10 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { useState, useRef, useEffect, Suspense } from "react";
-import Contacts from "../pages/Contacts";
+import { useState, useRef, useEffect, Suspense, useCallback } from "react";
+import Contacts from "../../pages/Contacts";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import { Canvas } from "@react-three/fiber";
 import { Center, Float, Text3D } from "@react-three/drei";
+import { CANVAS_CAMERA_VALUES, FLOAT_FLOATING_RANGE, FLOAT_POSITION } from "./constants";
+import { POINT_LIGHT_COMPONENT_CONSTANTS } from "./component_constants";
 
 export default function Header() {
   const [contactsOpen, setContactsOpen] = useState(false);
@@ -19,6 +20,42 @@ export default function Header() {
     window.addEventListener("scroll", handleScroll, { passive: true });
   }, []);
 
+  const onMouseEnter = useCallback(() => {
+    if (objectRef?.current) {
+      objectRef.current.scale.set(1.1, 1.1, 1.1);
+    }
+  }, []);
+
+  const onMouseLeave = useCallback(() => {
+    if (objectRef?.current) {
+      objectRef.current.scale.set(1, 1, 1);
+    }
+  }, []);
+
+  const onClickLogo = useCallback(() => {
+    document?.getElementById("main")?.scrollIntoView({
+      block: "start",
+      behavior: "smooth",
+    });
+  }, []);
+
+  const onClickProjects = useCallback(() => {
+    document?.getElementById("projects")?.scrollIntoView({
+      block: "start",
+      behavior: "smooth",
+    });
+  }, []);
+
+  const onClickContacts = useCallback(() => {
+    setContactsOpen(true);
+    disableBodyScroll(modal);
+  }, []);
+
+  const onClickOutsideContactsModal = useCallback(() => {
+    setContactsOpen(false);
+    enableBodyScroll(modal);
+  }, []);
+
   return (
     <>
       <Suspense>
@@ -29,32 +66,16 @@ export default function Header() {
         >
           <div
             className="max-w-[100px]"
-            onClick={() =>
-              document?.getElementById("main")?.scrollIntoView({
-                block: "start",
-                behavior: "smooth",
-              })
-            }
-            onMouseEnter={() => {
-              if (objectRef.current) {
-                // @ts-ignore
-                objectRef.current.scale.set(1.1, 1.1, 1.1);
-              }
-            }}
-            onMouseLeave={() => {
-              if (objectRef.current) {
-                // @ts-ignore
-                objectRef.current.scale.set(1, 1, 1);
-              }
-            }}
+            onClick={onClickLogo}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
           >
-            <Canvas shadows camera={{ position: [0, 0, 10] }}>
+            <Canvas shadows camera={CANVAS_CAMERA_VALUES}>
               <Float
                 floatIntensity={1}
                 speed={5}
-                floatingRange={[-0.1, 0.1]}
-                rotationIntensity={0.2}
-                position={[0, -3, 3]}
+                floatingRange={FLOAT_FLOATING_RANGE}
+                position={FLOAT_POSITION}
                 ref={objectRef}
               >
                 <Center top>
@@ -73,18 +94,14 @@ export default function Header() {
                   </Text3D>
                 </Center>
               </Float>
-              <pointLight position={[-5, 0, 10]} intensity={200} color="#ffffff" />
-              <pointLight position={[5, 0, 10]} intensity={200} color="#ffffff" />
+              {POINT_LIGHT_COMPONENT_CONSTANTS.map((light) => (
+                <pointLight {...light} />
+              ))}
             </Canvas>
           </div>
           <div className="flex flex-row gap-x-5 md:pr-4">
             <div
-              onClick={() =>
-                document?.getElementById("projects")?.scrollIntoView({
-                  block: "start",
-                  behavior: "smooth",
-                })
-              }
+              onClick={onClickProjects}
               className={`md:text-xl ${
                 !isTop && "text-[#00aeff]"
               } flex items-center hover:text-light_blue font-semibold`}
@@ -95,11 +112,7 @@ export default function Header() {
               className={`md:text-xl ${
                 !isTop ? "text-[#00aeff]" : "text-white"
               } flex items-center hover:text-light_blue`}
-              onClick={() => {
-                setContactsOpen(true);
-                // @ts-ignore
-                disableBodyScroll(modal);
-              }}
+              onClick={onClickContacts}
             >
               Contacts
             </button>
@@ -110,11 +123,7 @@ export default function Header() {
         <div className="fixed top-0 bottom-0 flex items-center justify-center w-screen bg-[#242424] z-30">
           <p
             className="fixed hover:ring-2 hover:ring-[#00aeff] top-0 right-0 flex items-center justify-center w-6 m-2 antialiased text-center text-[#00aeff] bg-white rounded-full md:text-2xl aspect-square md:w-10"
-            onClick={() => {
-              setContactsOpen(false);
-              // @ts-ignore
-              enableBodyScroll(modal);
-            }}
+            onClick={onClickOutsideContactsModal}
           >
             &#10005;
           </p>

@@ -3,7 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import * as THREE from "three";
 import gsap from "gsap";
 import { CANVAS_POSITION } from "./constants";
-import { componentConstants, pointLightComponentConstants } from "./component_constants";
+import { COMPONENT_CONSTANTS, POINT_LIGHT_COMPONENT_CONSTANTS } from "./component_constants";
 import { Box } from "./box";
 import Base from "./base";
 import Camera from "./camera";
@@ -60,19 +60,12 @@ export default function ThreeD() {
   return (
     <div className="relative w-screen h-[70vh] px-2">
       <Canvas shadows={"soft"} camera={{ position: CANVAS_POSITION }} className="w-full px-5">
-        {pointLightComponentConstants.map(({ position, intensity, color }, index) => (
-          <pointLight key={index} position={position} intensity={intensity} color={color} />
+        {POINT_LIGHT_COMPONENT_CONSTANTS.map((light) => (
+          <pointLight {...light} />
         ))}
         <group ref={group}>
-          {componentConstants.map(({ position, item, rotation, text, color }) => (
-            <Box
-              key={item}
-              position={position}
-              item={item}
-              rotation={rotation}
-              text={text}
-              color={color}
-            />
+          {COMPONENT_CONSTANTS.map((box) => (
+            <Box {...box} />
           ))}
         </group>
         <Base />

@@ -4,18 +4,24 @@ import gsap from "gsap";
 import { memo, useCallback, useRef } from "react";
 import { useInView } from "react-intersection-observer";
 
-function About() {
+type AboutPropsType = {
+  setIsWaitingOnAboutAnimation: (value: boolean) => void;
+};
+
+function About({ setIsWaitingOnAboutAnimation }: AboutPropsType) {
   const animationRefference = useRef(null);
   const { ref: inViewRef, inView } = useInView({ threshold: 0.2, triggerOnce: true });
 
   useGSAP(
     () => {
-      inView &&
+      if (inView) {
         gsap.fromTo(
           animationRefference.current,
           { opacity: 0, x: -200 },
           { opacity: 1, x: 0, duration: 1, delay: 0.3 }
         );
+        setTimeout(() => setIsWaitingOnAboutAnimation(false), 1300);
+      }
     },
     { scope: animationRefference, dependencies: [inView] }
   );
