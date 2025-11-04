@@ -14,7 +14,7 @@ interface ProjectCardType {
 
 export default function ProjectCard({ title, images, text, inView }: ProjectCardType) {
   const ref = useRef(null);
-  const modalRef = useRef(null);
+  const modalRef = useRef<HTMLDivElement>(null);
   useGSAP(
     () => {
       inView &&
@@ -30,12 +30,10 @@ export default function ProjectCard({ title, images, text, inView }: ProjectCard
   };
 
   useEffect(() => {
-    if (active) {
-      // @ts-ignore
-      disableBodyScroll(modalRef);
-    } else {
-      // @ts-ignore
-      enableBodyScroll(modalRef);
+    if (active && modalRef.current) {
+      disableBodyScroll(modalRef?.current);
+    } else if (modalRef.current) {
+      enableBodyScroll(modalRef.current);
     }
   }, [active]);
 

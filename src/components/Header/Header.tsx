@@ -9,8 +9,8 @@ import { POINT_LIGHT_COMPONENT_CONSTANTS } from "./component_constants";
 export default function Header() {
   const [contactsOpen, setContactsOpen] = useState(false);
   const [isTop, setIsTop] = useState(true);
-  const modal = useRef(null);
-  const objectRef = useRef(null);
+  const modal = useRef<HTMLDivElement>(null);
+  const objectRef = useRef<THREE.Group>(null);
 
   const handleScroll = () => {
     window.scrollY !== 0 ? setIsTop(false) : setIsTop(true);
@@ -22,14 +22,12 @@ export default function Header() {
 
   const onMouseEnter = useCallback(() => {
     if (objectRef?.current) {
-      // @ts-ignore
       objectRef.current.scale.set(1.1, 1.1, 1.1);
     }
   }, []);
 
   const onMouseLeave = useCallback(() => {
     if (objectRef?.current) {
-      // @ts-ignore
       objectRef.current.scale.set(1, 1, 1);
     }
   }, []);
@@ -49,21 +47,22 @@ export default function Header() {
   }, []);
 
   const onClickContacts = useCallback(() => {
+    if (!modal.current) return;
     setContactsOpen(true);
-    // @ts-ignore
-    disableBodyScroll(modal);
+    disableBodyScroll(modal.current);
   }, []);
 
   const onClickOutsideContactsModal = useCallback(() => {
+    if (!modal.current) return;
     setContactsOpen(false);
-    // @ts-ignore
-    enableBodyScroll(modal);
+    enableBodyScroll(modal.current);
   }, []);
 
   return (
     <>
       <Suspense>
         <div
+          ref={modal}
           className={
             "fixed flex flex-row justify-between w-screen px-5 py-2 z-10 max-h-14 bg-[#00111a]"
           }

@@ -4,45 +4,42 @@ import * as THREE from "three";
 import gsap from "gsap";
 import { CANVAS_POSITION } from "./constants";
 import { COMPONENT_CONSTANTS, POINT_LIGHT_COMPONENT_CONSTANTS } from "./component_constants";
-import { Box } from "./box";
+import { Box } from "./box/box";
 import Base from "./base";
 import Camera from "./camera";
 
 export default function ThreeD() {
-  const group = useRef(null);
+  const group = useRef<THREE.Group>(null);
   const spinBlocked = useRef(false);
 
+  const getNewCameraRotation = useCallback((rotation: string) => {
+    if (!group.current) return 0;
+    const currentRotation = THREE.MathUtils.radToDeg(group.current.rotation.y);
+    const correctedRotation = Math.round(currentRotation / 90) * 90;
+    return THREE.MathUtils.degToRad(
+      rotation === "left" ? correctedRotation + 90 : correctedRotation - 90
+    );
+  }, []);
+
   const spin = useCallback((rotationChoice: string) => {
-    if (!spinBlocked.current) {
+    if (!spinBlocked.current && group.current) {
       spinBlocked.current = true;
-      const getNewCameraRotation = (rotation: string) => {
-        //@ts-ignore
-        const currentRotation = THREE.MathUtils.radToDeg(group.current.rotation.y);
-        const correctedRotation = Math.round(currentRotation / 90) * 90;
-        return THREE.MathUtils.degToRad(
-          rotation === "left" ? correctedRotation + 90 : correctedRotation - 90
-        );
-      };
 
       rotationChoice === "left"
-        ? //@ts-ignore
-          gsap.to(group.current.rotation, {
+        ? gsap.to(group.current.rotation, {
             y: () => getNewCameraRotation("right"),
             duration: 0.8,
             ease: "power2",
           })
-        : //@ts-ignore
-          gsap.to(group.current.rotation, {
+        : gsap.to(group.current.rotation, {
             y: () => getNewCameraRotation("left"),
             duration: 0.8,
             ease: "power2",
           });
 
       gsap
-        //@ts-ignore
         .to(group.current.position, {
-          //@ts-ignore
-          y: () => group.current.position.y + 5,
+          y: () => (group.current ? group.current.position.y + 5 : 0),
           duration: 0.4,
           yoyoEase: true,
           repeat: 1,
