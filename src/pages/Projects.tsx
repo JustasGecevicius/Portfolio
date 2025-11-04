@@ -55,7 +55,7 @@ export default function Projects() {
             {projectsList?.SmallProjects?.length && (
               <div className="pt-4" ref={smallProjectInViewRef}>
                 <h3 className="text-3xl font-semibold text-center md:pt-10 md:text-5xl">
-                  Smaller Projects
+                  Humble beginnings
                 </h3>
                 <div className="flex flex-row flex-wrap justify-center gap-3 pt-2 md:pt-10 md:gap-6">
                   {projectsList.SmallProjects.map((project, index) => (
